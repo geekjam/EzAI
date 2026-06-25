@@ -1,4 +1,4 @@
-# AI Workflow (.ai)
+# Easy AI Workflow (.ai)
 
 A workflow that breaks AI collaboration into **plan files**. Each phase has its own `.md` plan file. In Claude, you simply name the plan to execute, and the AI follows the steps written in that file.
 
