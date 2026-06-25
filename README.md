@@ -99,3 +99,6 @@ The task plan template is described inside `MakeWork.md`. Changing the naming / 
 3. **Forced question alignment** — both `DefineProject` and `MakeWork` require the AI to ask questions one at a time until everything is clear, preventing misunderstanding.
 4. **Write docs back after execution** — `DoWork` runs `DefineProject` at the end so docs and code never drift apart.
 5. **No code changes until it's time** — the first two phases explicitly forbid editing code; project and tasks get clarified first.
+
+## 🔗 Friend Links
+- 🐧 [**LinuxDO**](https://linux.do/) — A community for tech enthusiasts

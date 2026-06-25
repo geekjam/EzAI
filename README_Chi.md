@@ -97,3 +97,7 @@
 3. **强制提问对齐** —— `DefineProject` 和 `MakeWork` 都要求 AI 一问一答问到清楚再动手，避免理解偏差。
 4. **执行完回写文档** —— `DoWork` 收尾时会跑一次 `DefineProject`，确保文档和代码不脱节。
 5. **不碰代码直到该碰** —— 前两个阶段明确禁止改代码，先把项目和任务想清楚。
+
+
+## 🔗 Friend Links
+- 🐧 [**LinuxDO**](https://linux.do/) — A community for tech enthusiasts
