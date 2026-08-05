@@ -13,7 +13,7 @@ A development run is split into three phases, each backed by one plan file:
 | Phase | Plan file | What it does | Output |
 |---|---|---|---|
 | 1. Define | `.ai/Define.md` | Clarify project goals, tech stack, directory structure, and standards | `README.md`, `FileTree.md`, `Standards.md` |
-| 2. Plan | `.ai/Plan.md` | Break work into steps and ask clarifying questions item by item | `.ai/task/N.xxTask.md` task list |
+| 2. Plan | `.ai/Plan.md` | Break work into steps and ask clarifying questions item by item | `.ai/task/NNN.<english-task-name>.md` task list |
 | 3. Run | `.ai/Run.md` | Execute the task list step by step and write back statuses when done | Code + updated task list |
 
 Flow: **Define → Plan → Run → (on deviation) back to Define to sync docs**.
@@ -30,8 +30,8 @@ project root/
     ├── Plan.md            # Phase 2: plan the tasks
     ├── Run.md             # Phase 3: execute the tasks
     └── task/              # Task plan files
-        ├── 1.xxTask.md
-        └── 2.xxxTask.md
+        ├── 001.initialize-project.md
+        └── 002.user-login-module.md
 ```
 
 ---
@@ -50,7 +50,7 @@ Use plain natural language, for example:
   Define/update the project and generate `README.md`, `FileTree.md`, `Standards.md`.
 
 - **`execute .ai/Plan plan`**
-  Create a task plan based on the current project state and generate `.ai/task/N.xxTask.md`.
+  Create a task plan based on the current project state and generate `.ai/task/NNN.<english-task-name>.md`, using a fixed-width, zero-padded three-digit sequence number.
   If project code has not been initialized yet, the default task is to initialize the project.
 
 - **`execute .ai/Plan plan with feature xxx`**
@@ -74,7 +74,7 @@ Each item in a task plan `.md` file is prefixed with a status marker:
 | `[~]` | In progress |
 | `[x]` | Completed |
 
-File naming: `number + English task name`, e.g. `1.xxTask`, `2.xxxTask`.
+File naming: `NNN.<english-task-name>.md`, where `NNN` is a fixed-width, zero-padded three-digit sequence number, e.g. `001.initialize-project.md`, `002.user-login-module.md`. Keeping the width fixed makes lexicographic filename sorting match numeric order.
 
 ---
 

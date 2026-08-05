@@ -25,7 +25,7 @@ A development run is split into three phases, each with one plan file:
 | Phase | Plan File | What it does | Output |
 |---|---|---|---|
 | 1. Define | `.ai/Define.md` | Clarify project goals, tech stack, directory structure, conventions | `README.md`, `FileTree.md`, `Standards.md` |
-| 2. Plan | `.ai/Plan.md` | Break the work into steps, ask questions item by item | `.ai/task/N.xxTask.md` task lists |
+| 2. Plan | `.ai/Plan.md` | Break the work into steps, ask questions item by item | `.ai/task/NNN.<english-task-name>.md` task lists |
 | 3. Run | `.ai/Run.md` | Execute the task list step by step, write status back | Code + updated task lists |
 
 Flow: **Define → Plan → Run → (on deviation) back to Define to sync docs**.
@@ -53,8 +53,8 @@ project-root/
     ├── Run.md             # Phase 3: do work plan
     ├── Commit.md          # Optional: make Git commit plan
     └── task/              # task plan files
-        ├── 1.xxTask.md
-        └── 2.xxxTask.md
+        ├── 001.initialize-project.md
+        └── 002.user-login-module.md
 ```
 
 ---
@@ -71,7 +71,7 @@ There are no build tools, package managers, or runtime dependencies to install.
 
 1. **Phased plan files** — `Define` / `Plan` / `Run` split a development run into three phases; the assistant asks questions item by item before doing any work.
 2. **Plan file as instruction** — trigger a phase with plain natural language like `execute .ai/Define plan`; no scripts or config files required.
-3. **Task list tracking** — `.ai/task/` holds task plans with `[ ]` / `[~]` / `[x]` status markers and `number + task name` file naming.
+3. **Task list tracking** — `.ai/task/` holds task plans with `[ ]` / `[~]` / `[x]` status markers and fixed-width, zero-padded sequence filenames such as `001.initialize-project.md`.
 4. **Docs write-back** — `Run` runs `Define` again at the end so architecture / framework changes flow back into `README` / `FileTree` / `Standards`.
 5. **Zero runtime dependencies** — everything is Markdown. Copy the folder and edit `.md` files to change behavior.
 6. **Optional Git commit helper** — `Commit` reads recently modified and newly added untracked files, follows `Standards.md` commit guidelines if present, and asks whether to push.
@@ -104,7 +104,7 @@ Each item in a task plan `.md` file is prefixed with a status marker:
 | `[~]` | In progress |
 | `[x]` | Done |
 
-File naming: `number + task name`, e.g. `1.initialize-project`, `2.user-login-module`.
+File naming: `NNN.<english-task-name>.md`, where `NNN` is a fixed-width, zero-padded three-digit sequence number, e.g. `001.initialize-project.md`, `002.user-login-module.md`. Keeping the width fixed makes lexicographic filename sorting match numeric order.
 
 ---
 
