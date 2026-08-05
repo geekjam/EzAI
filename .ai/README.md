@@ -1,99 +1,99 @@
-# AI 工作流（.ai）
+# AI Workflow (.ai)
 
-一套把 AI 协作过程拆分成**计划文件**的工作流。每个阶段对应一个 `.md` 计划文件，在 Claude 里直接点名执行哪个计划，AI 就按该文件的步骤推进。
+A workflow that turns AI-assisted development into **editable Markdown plan files**. Each phase maps to one `.md` plan file; tell the AI assistant which plan to execute and it follows the steps written in that file.
 
-> 目标：**容易看、可看懂、容易改。**
+> Goal: **easy to read, easy to understand, easy to modify.**
 
 ---
 
-## 工作流总览
+## Workflow Overview
 
-把一次开发拆成三个阶段，每个阶段一个计划文件：
+A development run is split into three phases, each backed by one plan file:
 
-| 阶段 | 计划文件 | 做什么 | 产出 |
+| Phase | Plan file | What it does | Output |
 |---|---|---|---|
-| 1. 定义 | `.ai/Define.md` | 明确项目目标、技术栈、目录结构、规范 | `README.md`、`FileTree.md`、`Standards.md` |
-| 2. 规划 | `.ai/Plan.md` | 把要做的事拆成步骤、逐项问清楚 | `.ai/task/N.xxTask.md` 任务清单 |
-| 3. 执行 | `.ai/Run.md` | 按任务清单一步步做，做完回写状态 | 代码 + 更新后的任务清单 |
+| 1. Define | `.ai/Define.md` | Clarify project goals, tech stack, directory structure, and standards | `README.md`, `FileTree.md`, `Standards.md` |
+| 2. Plan | `.ai/Plan.md` | Break work into steps and ask clarifying questions item by item | `.ai/task/N.xxTask.md` task list |
+| 3. Run | `.ai/Run.md` | Execute the task list step by step and write back statuses when done | Code + updated task list |
 
-流程：**Define → Plan → Run →（如有偏差）回到 Define 同步文档**。
+Flow: **Define → Plan → Run → (on deviation) back to Define to sync docs**.
 
 ---
 
-## 目录结构
+## Directory Structure
 
 ```
-项目根/
+project root/
 └── .ai/
-    ├── README.md          # 本说明文件
-    ├── Define.md          # 阶段 1：定义项目计划
-    ├── Plan.md            # 阶段 2：规划任务计划
-    ├── Run.md             # 阶段 3：执行任务计划
-    └── task/              # 任务计划文件存放处
+    ├── README.md          # This file
+    ├── Define.md          # Phase 1: define the project
+    ├── Plan.md            # Phase 2: plan the tasks
+    ├── Run.md             # Phase 3: execute the tasks
+    └── task/              # Task plan files
         ├── 1.xxTask.md
         └── 2.xxxTask.md
 ```
 
 ---
 
-## 使用方式
+## How to Use
 
-### 第一步：把 `.ai` 文件夹复制到你的项目根目录
+### Step 1: Copy the `.ai` folder into your project root
 
-直接整个文件夹拷过去就行，不需要改任何配置。
+Just copy the whole folder over — no configuration needed.
 
-### 第二步：在 Claude 里点名执行某个计划
+### Step 2: Tell the AI assistant which plan to execute
 
-直接用自然语言告诉 Claude 执行哪个计划文件即可，例如：
+Use plain natural language, for example:
 
-- **`执行.ai/Define 计划`**
-  开始定义/更新项目，生成 `README.md`、`FileTree.md`、`Standards.md`。
+- **`execute .ai/Define plan`**
+  Define/update the project and generate `README.md`, `FileTree.md`, `Standards.md`.
 
-- **`执行.ai/Plan 计划`**
-  根据当前项目状态制定任务计划，生成 `.ai/task/N.xxTask.md`。
-  如果项目代码还没初始化，默认任务就是「初始化项目」。
+- **`execute .ai/Plan plan`**
+  Create a task plan based on the current project state and generate `.ai/task/N.xxTask.md`.
+  If project code has not been initialized yet, the default task is to initialize the project.
 
-- **`按.ai/Plan 计划新增功能 xxx`**
-  带着具体需求制定任务计划，把「新增功能 xxx」拆成可执行步骤。
+- **`execute .ai/Plan plan with feature xxx`**
+  Create a task plan with a specific requirement, splitting "feature xxx" into executable steps.
 
-- **`执行.ai/Run 计划`**
-  按 `.ai/task/` 下的任务清单逐项执行，做完更新状态。
-  全部完成后会自动回头执行 `Define`，把架构/框架版本等变更同步回文档。
+- **`execute .ai/Run plan`**
+  Execute the tasks in `.ai/task/` one by one and update statuses when done.
+  On completion, it automatically runs `Define` again so architecture/framework changes flow back into the docs.
 
-> 计划文件本身就是给 AI 看的指令。Claude 读到「执行 X 计划」时，会打开 `.ai/X.md` 并按里面写的步骤走。
+> The plan file itself is the instruction for the AI. When the assistant reads "execute X plan", it opens `.ai/X.md` and follows the steps written there.
 
 ---
 
-## 任务清单状态约定
+## Task List Status Conventions
 
-任务计划 `.md` 文件里每一项前用状态标记：
+Each item in a task plan `.md` file is prefixed with a status marker:
 
-| 标记 | 含义 |
+| Marker | Meaning |
 |---|---|
-| `[ ]` | 未开始 |
-| `[~]` | 进行中 |
-| `[x]` | 已完成 |
+| `[ ]` | Not started |
+| `[~]` | In progress |
+| `[x]` | Completed |
 
-文件命名：`数字 + 任务名`，例如 `1.初始化项目`、`2.用户登录模块`。
-
----
-
-## 怎么改
-
-这套工作流没有任何代码，全是 Markdown。改计划行为就直接编辑 `.ai/` 下的三个 `.md` 文件：
-
-- 想改**定义**问什么 → 编辑 `Define.md`
-- 想改**规划**的方式 → 编辑 `Plan.md`
-- 想改**执行**的流程 → 编辑 `Run.md`
-
-任务计划模板在 `Plan.md` 里描述，改那里的命名/状态约定即可影响所有新生成的任务文件。
+File naming: `number + English task name`, e.g. `1.xxTask`, `2.xxxTask`.
 
 ---
 
-## 设计要点
+## How to Modify
 
-1. **每个阶段一个文件** —— 职责单一，看一眼就知道这步干什么。
-2. **计划文件即指令** —— 不需要脚本、不需要配置，Claude 直接读 Markdown 执行。
-3. **强制提问对齐** —— `Define` 和 `Plan` 都要求 AI 一问一答问到清楚再动手，避免理解偏差。
-4. **执行完回写文档** —— `Run` 收尾时会跑一次 `Define`，确保文档和代码不脱节。
-5. **不碰代码直到该碰** —— 前两个阶段明确禁止改代码，先把项目和任务想清楚。
+This workflow has no code — it's all Markdown. To change the behavior of the plans, edit the three `.md` files under `.ai/`:
+
+- Want to change what **Define** asks about → edit `Define.md`
+- Want to change how **Plan** works → edit `Plan.md`
+- Want to change the **Run** flow → edit `Run.md`
+
+The task plan template is described in `Plan.md`; change the naming/status conventions there to affect all newly generated task files.
+
+---
+
+## Design Principles
+
+1. **One file per phase** — single responsibility; a glance tells you what this phase does.
+2. **Plan file as instruction** — no scripts, no config; the AI reads Markdown and executes.
+3. **Mandatory questioning** — `Define` and `Plan` require the AI to ask questions one by one until things are clear, avoiding misunderstandings.
+4. **Docs write-back after execution** — `Run` runs `Define` at the end so docs and code stay in sync.
+5. **No code until it's time** — the first two phases explicitly forbid changing code; think the project and tasks through first.
