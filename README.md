@@ -11,7 +11,7 @@ A workflow that turns AI-assisted development into **editable Markdown plan file
 ## Quick Start
 
 1. Copy the `.ai` folder into your project root. No configuration needed.
-2. Tell your AI coding assistant: **`execute .ai\Define plan`**
+2. Tell your AI coding assistant: **`execute .ai/Define plan`**
    The assistant will start defining/updating the project and generate `README.md`, `FileTree.md`, `Standards.md`.
 
 That's it — the plan file itself is the instruction. The assistant reads `.ai/X.md` and follows the steps written there.
@@ -36,7 +36,7 @@ Flow: **Define → Plan → Run → (on deviation) back to Define to sync docs**
 
 After `Run` (or at any point where work is ready to commit), run:
 
-**`execute .ai\Commit plan`**
+**`execute .ai/Commit plan`**
 
 The assistant checks whether the current directory is a Git repository, generates a commit from the most recently modified and newly added uncommitted files, and follows `Standards.md` if it specifies commit guidelines. It then asks whether to push, or whether to commit without pushing.
 
@@ -70,7 +70,7 @@ There are no build tools, package managers, or runtime dependencies to install.
 ## Features
 
 1. **Phased plan files** — `Define` / `Plan` / `Run` split a development run into three phases; the assistant asks questions item by item before doing any work.
-2. **Plan file as instruction** — trigger a phase with plain natural language like `execute .ai\Define plan`; no scripts or config files required.
+2. **Plan file as instruction** — trigger a phase with plain natural language like `execute .ai/Define plan`; no scripts or config files required.
 3. **Task list tracking** — `.ai/task/` holds task plans with `[ ]` / `[~]` / `[x]` status markers and `number + task name` file naming.
 4. **Docs write-back** — `Run` runs `Define` again at the end so architecture / framework changes flow back into `README` / `FileTree` / `Standards`.
 5. **Zero runtime dependencies** — everything is Markdown. Copy the folder and edit `.md` files to change behavior.
