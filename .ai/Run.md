@@ -4,4 +4,4 @@ Proceed as planned:
 3. Update the task statuses in the task plan document.
 
 Finally:
-1. Execute the “DefineProject” plan to update the documentation, synchronizing changes to infrastructure—such as architecture and framework versions (if there are deviations from the initial specifications)—and making necessary updates to the project description.
+1. Execute the “Define” plan to update the documentation, synchronizing changes to infrastructure—such as architecture and framework versions (if there are deviations from the initial specifications)—and making necessary updates to the project description.
