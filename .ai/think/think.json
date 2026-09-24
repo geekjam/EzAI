@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "title": "构思脑图",
+    "subtitle": "想到什么就说什么 · 边聊边画",
+    "layoutMode": "radial",
+    "stageWidth": 1480,
+    "stageHeight": 1080,
+    "center": { "x": 740, "y": 460, "size": 150 },
+    "centerIcon": "💭",
+    "centerLabel": "构思",
+    "lineStyle": {
+      "center":  { "width": 2.5, "dash": "8 5", "opacity": 0.6 },
+      "branch":  { "width": 1.6, "dash": "5 4", "opacity": 0.48 },
+      "level2":  { "width": 1.3, "dash": "4 3", "opacity": 0.38 },
+      "deep":    { "width": 1.0, "dash": "3 3", "opacity": 0.28 }
+    }
+  },
+  "stickers": [
+    { "emoji": "🧠", "top": 18, "left": 22 },
+    { "emoji": "🗺️", "top": 40, "right": 36, "rotate": 14 },
+    { "emoji": "🧭", "bottom": 36, "left": 48, "rotate": -12 },
+    { "emoji": "✏️", "bottom": 50, "right": 55, "rotate": 7 }
+  ],
+  "groups": [
+    {
+      "id": "problem",
+      "side": "L",
+      "icon": "🎯",
+      "title": "要解决的问题",
+      "sub": "Problem",
+      "color": "#c97b3a",
+      "bg": "#fdf0e0",
+      "leaves": [
+        { "emoji": "❓", "text": "谁遇到了什么问题？" },
+        {
+          "emoji": "😖",
+          "text": "现在是怎么凑合的？",
+          "children": [
+            { "emoji": "🔧", "text": "现有替代方案" },
+            { "emoji": "💸", "text": "付出的代价 / 成本" }
+          ]
+        },
+        { "emoji": "⏰", "text": "为什么现在要做？" }
+      ]
+    },
+    {
+      "id": "vision",
+      "side": "R",
+      "icon": "🌟",
+      "title": "愿景",
+      "sub": "Vision",
+      "color": "#5f7d6b",
+      "bg": "#eef5f0",
+      "leaves": [
+        { "emoji": "🖼️", "text": "理想状态的一句话描述" },
+        { "emoji": "🏁", "text": "「成功」是什么样子？" }
+      ]
+    },
+    {
+      "id": "users",
+      "side": "L",
+      "icon": "👥",
+      "title": "目标用户",
+      "sub": "Users",
+      "color": "#8b5e3c",
+      "leaves": [
+        { "emoji": "🙋", "text": "主要使用者是谁？" },
+        { "emoji": "🧭", "text": "在什么场景下使用？" },
+        { "emoji": "🚫", "text": "明确不服务谁？" }
+      ]
+    },
+    {
+      "id": "features",
+      "side": "R",
+      "icon": "🧩",
+      "title": "功能设想",
+      "sub": "Features",
+      "color": "#a0522d",
+      "leaves": [
+        { "emoji": "✨", "text": "一定要有的能力" },
+        { "emoji": "💡", "text": "锦上添花的能力" },
+        { "emoji": "✂️", "text": "这一期决定不做的" }
+      ]
+    },
+    {
+      "id": "risks",
+      "side": "L",
+      "icon": "⚠️",
+      "title": "风险与约束",
+      "sub": "Risks",
+      "color": "#c0392b",
+      "leaves": [
+        { "emoji": "🧱", "text": "硬约束（时间 / 人力 / 技术）" },
+        { "emoji": "🕳️", "text": "最容易翻车的地方" }
+      ]
+    },
+    {
+      "id": "open",
+      "side": "R",
+      "icon": "❓",
+      "title": "待定问题",
+      "sub": "Open Questions",
+      "color": "#b38b5b",
+      "leaves": [
+        { "emoji": "🤔", "text": "还没想清楚的点" },
+        { "emoji": "🧪", "text": "需要验证的假设" }
+      ]
+    }
+  ],
+  "insights": [
+    { "emoji": "💡", "text": "用法：说出你的想法，每条回答都会被画进这张图" },
+    { "emoji": "🔑", "text": "想清楚后落地为 Think.md，再进入 Plan 拆成任务" }
+  ]
+}

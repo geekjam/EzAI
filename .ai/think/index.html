@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>构思脑图 · Think Map</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f4e4c1;
+    --paper: #faf3e0;
+    --ink: #3b2f1e;
+    --shadow: rgba(60, 40, 20, 0.15);
+    --brown: #8b5e3c;
+    --accent: #a0522d;
+  }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(180,140,100,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(160,130,90,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(140,120,80,0.08) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='0.4' fill='%23c4a87c' opacity='0.25'/%3E%3C/svg%3E");
+    font-family: 'Noto Serif SC', 'SimSun', 'STSong', 'Microsoft YaHei', serif;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .wallpaper {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(160,120,60,0.06) 80px, rgba(160,120,60,0.06) 81px),
+      repeating-linear-gradient(90deg, transparent, transparent 120px, rgba(160,120,60,0.04) 120px, rgba(160,120,60,0.04) 121px);
+  }
+
+  .title-bar {
+    position: relative; z-index: 1; text-align: center;
+    padding: 20px 0 6px; flex-shrink: 0;
+  }
+  .title-bar h1 {
+    font-family: 'STKaiti', 'KaiTi', 'SimSun', 'Noto Serif SC', serif;
+    font-size: 2.6rem; font-weight: 900; letter-spacing: 0.08em;
+    color: var(--accent);
+    text-shadow: 2px 2px 0 rgba(180,140,100,0.3);
+    display: inline-block; position: relative;
+  }
+  .title-bar h1::after {
+    content: ''; position: absolute; left: 10%; right: 10%; bottom: -4px;
+    height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, transparent, #c97b3a, transparent);
+  }
+  .title-bar .subtitle {
+    font-size: 0.9rem; color: var(--brown); letter-spacing: 0.3em; margin-top: 4px;
+  }
+
+  .stage-wrap {
+    position: relative; z-index: 1; width: 100%; flex: 1;
+    overflow: auto;
+    display: flex; justify-content: flex-start; align-items: flex-start;
+    padding-bottom: 40px;
+    touch-action: none;
+    user-select: none; -webkit-user-select: none;
+    cursor: grab;
+  }
+  .stage-wrap:active { cursor: grabbing; }
+  .stage-zoom { margin: 0 auto; flex-shrink: 0; }
+  .stage { position: relative; flex-shrink: 0; transform-origin: 0 0; }
+
+  #lines-svg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+  }
+
+  .node {
+    position: absolute; z-index: 2; cursor: default;
+    filter: drop-shadow(2px 3px 4px var(--shadow));
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), filter 0.25s ease;
+  }
+  .node:hover {
+    transform: scale(1.07);
+    filter: drop-shadow(4px 6px 10px rgba(60,40,20,0.3));
+    z-index: 20 !important;
+  }
+
+  .center-node {
+    z-index: 5;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #f7e3c0, #d4a96a);
+    border: 4px solid var(--brown);
+    box-shadow:
+      0 0 0 8px rgba(180,140,100,0.18),
+      0 0 0 16px rgba(180,140,100,0.07),
+      0 8px 32px rgba(60,40,20,0.2);
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center;
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), box-shadow 0.4s ease;
+  }
+  .center-node:hover {
+    transform: scale(1.08) !important;
+    box-shadow:
+      0 0 0 8px rgba(180,140,100,0.3),
+      0 0 0 16px rgba(180,140,100,0.12),
+      0 12px 40px rgba(60,40,20,0.3);
+  }
+  .center-node .c-icon { font-size: 2.8rem; line-height: 1; }
+  .center-node .c-label { font-size: 1.5rem; font-weight: 700; color: var(--ink); }
+
+  .branch {
+    background: var(--paper);
+    border: 2px solid var(--brown);
+    border-radius: 8px 24px 8px 24px;
+    padding: 12px 22px; text-align: center; white-space: nowrap;
+  }
+  .branch::before {
+    content: ''; position: absolute; inset: 3px;
+    border: 1px dashed rgba(180,140,100,0.3);
+    border-radius: 5px 20px 5px 20px; pointer-events: none;
+  }
+  .branch .b-icon  { font-size: 1.8rem; display: block; }
+  .branch .b-title { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
+  .branch .b-sub   { font-size: 0.7rem; color: var(--brown); opacity: 0.75; letter-spacing: 0.06em; }
+
+  .leaf {
+    background: var(--paper);
+    border: 1.5px solid #b38b5b;
+    border-radius: 3px 16px 3px 16px;
+    padding: 7px 15px; font-size: 0.85rem;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .leaf.lv2 { font-size: 0.8rem; padding: 5px 12px; border-radius: 2px 12px 2px 12px; }
+  .leaf.lv3 { font-size: 0.74rem; padding: 4px 10px; border-radius: 2px 10px 2px 10px; border-style: dashed; opacity: 0.92; }
+  .leaf.lv4 { font-size: 0.68rem; padding: 3px 8px; border-radius: 2px 8px 2px 8px; border-style: dotted; opacity: 0.82; }
+
+  .leaf .l-emoji { font-size: 1rem; flex-shrink: 0; }
+  .leaf .l-text  { color: var(--ink); letter-spacing: 0.03em; }
+
+  .insight {
+    background: #fff8e7;
+    border: 1.5px dashed #d4a96a !important;
+    border-radius: 6px 20px 6px 20px !important;
+    z-index: 3;
+  }
+
+  .branch.has-bg,
+  .leaf.has-bg {
+    background-image: none;
+  }
+
+  .sticker {
+    position: absolute; z-index: 1; pointer-events: none;
+    font-size: 2.2rem; opacity: 0.22;
+  }
+
+  .hint-bar {
+    position: relative; z-index: 10; text-align: center;
+    padding: 0 0 10px; flex-shrink: 0;
+    font-size: 0.78rem; color: var(--brown); opacity: 0.85;
+    letter-spacing: 0.05em;
+  }
+
+  .zoom-controls {
+    position: fixed; right: 14px; bottom: 14px; z-index: 100;
+    display: flex; align-items: center; gap: 6px;
+    background: var(--paper);
+    border: 1.5px solid var(--brown);
+    border-radius: 20px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 14px rgba(60, 40, 20, 0.2);
+    font-family: inherit;
+  }
+  .zoom-controls button {
+    font-family: inherit; font-size: 1.05rem; font-weight: 700;
+    width: 30px; height: 30px; line-height: 1;
+    border: 1px solid var(--brown); border-radius: 50%;
+    background: #fff8e7; color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .zoom-controls button:active { background: #f0dfc0; }
+  .zoom-controls .zoom-pct {
+    font-size: 0.78rem; min-width: 46px; text-align: center;
+    color: var(--brown); font-variant-numeric: tabular-nums;
+  }
+  .zoom-controls .zoom-reset {
+    width: auto; padding: 0 10px; font-size: 0.78rem; font-weight: 500;
+    border-radius: 14px;
+  }
+
+  @media (max-width: 900px) {
+    .zoom-controls { right: 10px; bottom: 10px; padding: 4px 8px; }
+    .zoom-controls button { width: 26px; height: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wallpaper"></div>
+
+<div class="title-bar">
+  <h1 id="main-title"></h1>
+  <div class="subtitle" id="main-subtitle"></div>
+</div>
+
+<div class="hint-bar">构思脑图 · 修改 think.json 后本页自动重绘（实时预览）</div>
+
+<div class="stage-wrap" id="stage-wrap">
+  <div class="stage-zoom" id="stage-zoom">
+    <div class="stage" id="stage"></div>
+  </div>
+</div>
+
+<div class="zoom-controls" id="zoom-controls">
+  <button id="zoom-out" type="button" title="缩小">−</button>
+  <span class="zoom-pct" id="zoom-pct">100%</span>
+  <button id="zoom-in" type="button" title="放大">＋</button>
+  <button class="zoom-reset" id="zoom-reset" type="button" title="重置缩放">重置</button>
+</div>
+
+<script src="mindmap.js"></script>
+</body>
+</html>
