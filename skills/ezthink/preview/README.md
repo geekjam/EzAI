@@ -1,4 +1,4 @@
-# 构思脑图预览工具（.ai/think）
+# 构思脑图预览工具（think skill）
 
 一个本地实时预览的思维导图工具，用于 **头脑风暴**。AI 助手在和你聊的过程中把想法实时写进 `think.json`，浏览器自动重绘，边聊边看。
 
@@ -6,10 +6,10 @@
 
 ## 快速开始
 
-在**项目根目录**执行：
+在本目录（或任意目录下用绝对路径）执行：
 
 ```bash
-python .ai/think/server.py
+python server.py
 ```
 
 然后打开 <http://localhost:8787>。
@@ -21,10 +21,10 @@ python .ai/think/server.py
 ## 启动参数
 
 ```bash
-python .ai/think/server.py --port 3000        # 指定端口（默认 8787）
-python .ai/think/server.py --no-watch         # 关闭热更新
-python .ai/think/server.py --interval 2       # 轮询间隔 2 秒（默认 1 秒）
-python .ai/think/server.py --host 0.0.0.0     # 允许局域网访问（默认仅本机）
+python server.py --port 3000        # 指定端口（默认 8787）
+python server.py --no-watch         # 关闭热更新
+python server.py --interval 2       # 轮询间隔 2 秒（默认 1 秒）
+python server.py --host 0.0.0.0     # 允许局域网访问（默认仅本机）
 ```
 
 默认绑定 `127.0.0.1`，仅本机可访问。加 `--host 0.0.0.0` 后同网段设备也能打开，**不要暴露到公网**。
@@ -38,7 +38,7 @@ python .ai/think/server.py --host 0.0.0.0     # 允许局域网访问（默认�
 | `server.py` | Python 标准库 HTTP 服务器：静态文件白名单 + SSE 热更新 + `/api/data` |
 | `index.html` | 复古纸张风格的页面骨架、样式、缩放控件 |
 | `mindmap.js` | 自适应布局引擎（放射 / 纵向 / 横向）、SVG 连线、缩放平移、SSE 客户端 |
-| `think.json` | 当前构思脑图数据，AI 实时更新此文件 |
+| `think.json` | 当前构思脑图数据，AI 实时更新此文件（初始为模板） |
 | `README.md` | 本文件 |
 
 ---

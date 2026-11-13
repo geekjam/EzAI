@@ -3,10 +3,10 @@
 构思脑图 - 本地预览服务器（支持热更新）
 
 用法（在项目根目录执行）:
-  python .ai/think/server.py              # 默认 http://127.0.0.1:8787，监视 think*.json
-  python .ai/think/server.py --port 3000  # 指定端口
-  python .ai/think/server.py --host 0.0.0.0   # 允许局域网访问（默认仅本机）
-  python .ai/think/server.py --no-watch   # 关闭热更新
+  python server.py              # 默认 http://127.0.0.1:8787，监视 think*.json
+  python server.py --port 3000  # 指定端口
+  python server.py --host 0.0.0.0   # 允许局域网访问（默认仅本机）
+  python server.py --no-watch   # 关闭热更新
 
 热更新原理:
   服务器轮询 think*.json 的修改时间，变化时通过 SSE 推送完整数据，
