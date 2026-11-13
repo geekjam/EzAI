@@ -10,7 +10,7 @@ disable-model-invocation: true
 2. Default scope: the most recently modified files plus newly added, uncommitted files. Confirm this scope with the user first.
 3. If `Standards.md` defines commit guidelines, follow them.
 4. Before committing, show the planned commit message and the file list.
-5. Ask whether to commit only or commit and push. After a commit-only run, report the commit details and ask whether to push.
+5. Ask whether to commit only or commit and push. After a commit-only run, report the commit details.
 
 Ask one question at a time.
 
