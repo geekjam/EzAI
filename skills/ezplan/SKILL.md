@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Plan — task planning
 
-1. Read `README.md`, `FileTree.md`, `Standards.md`, `Think.md`, existing `.task/` files, and `.task/archive/` (completed tasks — for context and numbering only). Determine the task from the user's input. If no specific task is given and the code described in `README.md` does not exist yet, the default task is to initialize the project.
+1. Determine the task from the user's input. If no specific task is given and the code described in `README.md` does not exist yet, the default task is to initialize the project.
 2. Ask the user which task to perform, one question at a time, with your recommendation.
 3. Break the task into ordered steps, interrogating the user in depth until you agree on the details. Then write the task file in `.task/`, creating that folder first if it does not exist.
 
